@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Salesforce Service Cloud – CSG Interview Prep</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sky: #e0f4ff;
+    --mint: #d6f5ec;
+    --peach: #ffe8db;
+    --lavender: #ede9ff;
+    --lemon: #fff9d6;
+    --rose: #ffe0ec;
+    --blue-accent: #1a73e8;
+    --teal-accent: #00897b;
+    --orange-accent: #f4511e;
+    --purple-accent: #6c3fc5;
+    --gold-accent: #f59e0b;
+    --red-accent: #e53935;
+    --text-dark: #1a1a2e;
+    --text-mid: #3d3d5c;
+    --text-light: #6b6b8e;
+    --white: #ffffff;
+    --card-shadow: 0 4px 24px rgba(0,0,0,0.07);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: linear-gradient(135deg, #f0f9ff 0%, #fdf4ff 40%, #fff8f0 100%);
+    color: var(--text-dark);
+    min-height: 100vh;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, #dbeafe 0%, #ede9ff 50%, #fce7f3 100%);
+    padding: 56px 24px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 40px,
+      rgba(255,255,255,0.18) 40px,
+      rgba(255,255,255,0.18) 41px
+    );
+  }
+  .hero-badge {
+    display: inline-block;
+    background: linear-gradient(90deg, #1a73e8, #6c3fc5);
+    color: #fff;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    padding: 6px 18px;
+    border-radius: 99px;
+    margin-bottom: 18px;
+    position: relative;
+  }
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 800;
+    line-height: 1.15;
+    color: var(--text-dark);
+    position: relative;
+    margin-bottom: 14px;
+  }
+  .hero h1 span { color: #1a73e8; }
+  .hero p {
+    font-size: 1rem;
+    color: var(--text-mid);
+    max-width: 560px;
+    margin: 0 auto 24px;
+    position: relative;
+  }
+  .stat-row {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    position: relative;
+  }
+  .stat-pill {
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.9);
+    border-radius: 99px;
+    padding: 8px 20px;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-dark);
+  }
+  .stat-pill strong { color: var(--blue-accent); }
+
+  /* ── TOC NAV ── */
+  .toc {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px 16px;
+    background: rgba(255,255,255,0.7);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(12px);
+  }
+  .toc a {
+    text-decoration: none;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 6px 14px;
+    border-radius: 99px;
+    border: 1.5px solid transparent;
+    transition: all 0.2s;
+  }
+  .toc a:nth-child(1) { background: #e0f4ff; color: #1a73e8; border-color: #b3e0ff; }
+  .toc a:nth-child(2) { background: #d6f5ec; color: #00897b; border-color: #a7e6d5; }
+  .toc a:nth-child(3) { background: #ffe8db; color: #f4511e; border-color: #ffc9ae; }
+  .toc a:nth-child(4) { background: #ede9ff; color: #6c3fc5; border-color: #c9bef5; }
+  .toc a:nth-child(5) { background: #fff9d6; color: #b45309; border-color: #fde68a; }
+  .toc a:nth-child(6) { background: #ffe0ec; color: #c2185b; border-color: #f9a8c9; }
+  .toc a:nth-child(7) { background: #e8f5e9; color: #2e7d32; border-color: #a5d6a7; }
+  .toc a:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+
+  /* ── SECTIONS ── */
+  .container { max-width: 960px; margin: 0 auto; padding: 40px 20px 80px; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 48px 0 24px;
+  }
+  .section-icon {
+    width: 48px; height: 48px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+  }
+  .section-header h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--text-dark);
+  }
+  .section-header p {
+    font-size: 0.82rem;
+    color: var(--text-light);
+    margin-top: 2px;
+  }
+
+  /* ── Q&A CARDS ── */
+  .qa-list { display: flex; flex-direction: column; gap: 16px; }
+
+  .qa-card {
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+  }
+  .qa-card:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
+
+  .qa-question {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 18px 22px;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+  }
+  .qa-question .q-num {
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    padding: 4px 10px;
+    border-radius: 99px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    font-family: 'Syne', sans-serif;
+  }
+  .qa-question .q-text { flex: 1; line-height: 1.45; }
+  .qa-question .chevron {
+    font-size: 1rem;
+    transition: transform 0.3s;
+    margin-top: 2px;
+    flex-shrink: 0;
+    opacity: 0.6;
+  }
+  .qa-card.open .chevron { transform: rotate(180deg); }
+
+  .qa-answer {
+    display: none;
+    padding: 0 22px 20px 22px;
+    font-size: 0.9rem;
+    line-height: 1.75;
+    color: var(--text-mid);
+    border-top: 1px dashed rgba(0,0,0,0.08);
+    padding-top: 16px;
+    margin-top: 0;
+  }
+  .qa-card.open .qa-answer { display: block; }
+
+  .qa-answer strong { color: var(--text-dark); }
+  .qa-answer ul { padding-left: 20px; margin: 8px 0; }
+  .qa-answer li { margin-bottom: 5px; }
+
+  .table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-top: 12px;
+  }
+
+  .tip-box {
+    background: rgba(255,255,255,0.6);
+    border-left: 3px solid currentColor;
+    border-radius: 0 10px 10px 0;
+    padding: 10px 14px;
+    margin-top: 12px;
+    font-size: 0.83rem;
+    font-style: italic;
+  }
+
+  /* ── COLOR THEMES per section ── */
+  .theme-blue .section-icon { background: #dbeafe; }
+  .theme-blue .qa-card { background: #f0f9ff; border: 1px solid #bfdbfe; }
+  .theme-blue .qa-question { background: #e0f2fe; }
+  .theme-blue .q-num { background: #1a73e8; color: #fff; }
+  .theme-blue .tip-box { color: #1a73e8; background: #e0f2fe; }
+
+  .theme-teal .section-icon { background: #ccfbf1; }
+  .theme-teal .qa-card { background: #f0fdf9; border: 1px solid #99f6e4; }
+  .theme-teal .qa-question { background: #d6f5ec; }
+  .theme-teal .q-num { background: #00897b; color: #fff; }
+  .theme-teal .tip-box { color: #00897b; background: #d6f5ec; }
+
+  .theme-orange .section-icon { background: #ffedd5; }
+  .theme-orange .qa-card { background: #fff7ed; border: 1px solid #fed7aa; }
+  .theme-orange .qa-question { background: #ffe8db; }
+  .theme-orange .q-num { background: #f4511e; color: #fff; }
+  .theme-orange .tip-box { color: #f4511e; background: #ffe8db; }
+
+  .theme-purple .section-icon { background: #ede9ff; }
+  .theme-purple .qa-card { background: #f5f3ff; border: 1px solid #ddd6fe; }
+  .theme-purple .qa-question { background: #ede9ff; }
+  .theme-purple .q-num { background: #6c3fc5; color: #fff; }
+  .theme-purple .tip-box { color: #6c3fc5; background: #ede9ff; }
+
+  .theme-gold .section-icon { background: #fef3c7; }
+  .theme-gold .qa-card { background: #fffbeb; border: 1px solid #fde68a; }
+  .theme-gold .qa-question { background: #fff9d6; }
+  .theme-gold .q-num { background: #d97706; color: #fff; }
+  .theme-gold .tip-box { color: #d97706; background: #fff9d6; }
+
+  .theme-rose .section-icon { background: #ffe4e6; }
+  .theme-rose .qa-card { background: #fff1f2; border: 1px solid #fecdd3; }
+  .theme-rose .qa-question { background: #ffe0ec; }
+  .theme-rose .q-num { background: #c2185b; color: #fff; }
+  .theme-rose .tip-box { color: #c2185b; background: #ffe0ec; }
+
+  .theme-green .section-icon { background: #dcfce7; }
+  .theme-green .qa-card { background: #f0fdf4; border: 1px solid #bbf7d0; }
+  .theme-green .qa-question { background: #e8f5e9; }
+  .theme-green .q-num { background: #2e7d32; color: #fff; }
+  .theme-green .tip-box { color: #2e7d32; background: #e8f5e9; }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #e2e8f0, transparent);
+    margin: 48px 0 0;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 32px 20px;
+    font-size: 0.8rem;
+    color: var(--text-light);
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+  footer strong { color: var(--blue-accent); }
+
+  /* ── PROGRESS BAR ── */
+  .progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #1a73e8, #6c3fc5, #f4511e);
+    z-index: 999;
+    transition: width 0.1s;
+    width: 0%;
+  }
+
+  @media (max-width: 768px) {
+    .container { padding: 20px 16px 60px; }
+    .section-header { margin: 32px 0 16px; }
+  }
+
+  @media (max-width: 480px) {
+    .toc { gap: 6px; }
+    .toc a { font-size: 0.68rem; padding: 5px 10px; }
+    .hero { padding: 40px 16px 30px; }
+    .hero h1 { font-size: 1.8rem; }
+    .stat-pill { font-size: 0.75rem; padding: 6px 14px; }
+    .qa-question { padding: 14px 16px; font-size: 0.88rem; }
+    .qa-answer { padding: 0 16px 16px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progress"></div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">🏆 Exam Passed · Interview Ready</div>
+  <h1>Salesforce <span>Service Cloud</span><br>CSG Interview Prep</h1>
+  <p>Complete Q&A guide for your Success Guide interview — from core concepts to advanced scenarios. Click any question to reveal the answer.</p>
+  <div class="stat-row">
+    <div class="stat-pill"><strong>7</strong> Topic Areas</div>
+    <div class="stat-pill"><strong>50+</strong> Questions</div>
+    <div class="stat-pill"><strong>⚡</strong> Quick Scan Format</div>
+  </div>
+</div>
+
+<!-- STICKY NAV -->
+<nav class="toc">
+  <a href="#basics">🟦 Basics</a>
+  <a href="#case">🟩 Case Mgmt</a>
+  <a href="#omni">🟧 Omni-Channel</a>
+  <a href="#knowledge">🟪 Knowledge</a>
+  <a href="#automation">🟨 Automation</a>
+  <a href="#ai">🟥 Einstein AI</a>
+  <a href="#scenario">🟩 Scenarios</a>
+</nav>
+
+<div class="container">
+
+  <!-- ════════════ SECTION 1: BASICS ════════════ -->
+  <div id="basics" class="theme-blue">
+    <div class="section-header">
+      <div class="section-icon">☁️</div>
+      <div>
+        <h2>Core Concepts & Basics</h2>
+        <p>Foundation questions every Service Cloud professional must nail</p>
+      </div>
+    </div>
+    <div class="qa-list">
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggle(this)">
+          <span class="q-num">Q1</span>
+          <span class="q-text">What is Salesforce Service Cloud and what are its key features?</span>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="qa-answer">
+          Salesforce Service Cloud is a <strong>customer service and support CRM platform</strong> built on Salesforce that helps businesses manage customer interactions, cases, and service requests across multiple channels (email, phone, chat, social media, web).<br><br>
+          <strong>Key Features:</strong>
+          <ul>
+            <li>📋 <strong>Case Management</strong> – Track, manage, and resolve customer issues</li>
+            <li>🌐 <strong>Omni-Channel Routing</strong> – Intelligently distribute work to agents</li>
+            <li>📚 <strong>Knowledge Base</strong> – Articles for agents and self-service</li>
+            <li>🖥️ <strong>Service Console</strong> – Unified agent interface</li>
+            <li>🤖 <strong>Einstein AI</strong> – Automated classification and recommendations</li>
+            <li>🔗 <strong>Live Agent / Messaging</strong> – Real-time chat support</li>
+            <li>📊 <strong>Reports & Dashboards</strong> – KPI tracking and analytics</li>
+            <li>📑 <strong>Entitlement Management</strong> – SLA enforcement</li>
+          </ul>
+          <div class="tip-box">💡 <strong>Pro Tip:</strong> Emphasize that Service Cloud provides a 360° view of the customer, integrating with Sales Cloud and Marketing Cloud for a seamless experience.</div>
+        </div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggle(this)">
+          <span class="q-num">Q2</span>
+          <span class="q-text">What is the Service Console and how does it boost agent productivity?</span>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="qa-answer">
+          The <strong>Service Console</strong> is a unified interface in Salesforce Service Cloud that lets agents manage multiple cases and customer interactions from a single screen. It shows case history, open tasks, knowledge articles, and customer data — all at once.<br><br>
+          <strong>Productivity boosters include:</strong>
+          <ul>
+            <li>⌨️ <strong>Keyboard Shortcuts</strong> – Navigate records without mouse</li>
+            <li>🤖 <strong>Macros</strong> – Automate repetitive tasks with one click</li>
+            <li>🧩 <strong>Custom Components</strong> – Display third-party data inline</li>
+            <li>🗂️ <strong>Split View & Tabs</strong> – Work across multiple records simultaneously</li>
+            <li>📌 <strong>Utility Bar</strong> – Quick access to frequently used tools</li>
+          </ul>
+          <div class="tip-box">💡 Agents no longer need to switch between tabs and screens — everything is visible in one place, dramatically reducing average handle time (AHT).</div>
+        </div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggle(this)">
+          <span class="q-num">Q3</span>
+          <span class="q-text">What is a Case in Salesforce Service Cloud?</span>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="qa-answer">
+          A <strong>Case</strong> is a record representing a customer's question, feedback, or issue. It's the backbone of Service Cloud. Cases can be submitted via email, web form, phone, chat, or social media — and every communication transforms into a trackable case.<br><br>
+          <strong>Important Case concepts:</strong>
+          <ul>
+            <li><strong>Case Origin</strong> – Channel through which case was submitted</li>
+            <li><strong>Case Status</strong> – New, In Progress, Escalated, Closed</li>
+            <li><strong>Case Priority</strong> – Low, Medium, High, Critical</li>
+            <li><strong>Case Team</strong> – Multiple users collaborating on a single case</li>
+            <li><strong>Parent Case</strong> – Link related cases under a parent record</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggle(this)">
+          <span class="q-num">Q4</span>
+          <span class="q-text">How does Web-to-Case work in Salesforce?</span>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="qa-answer">
+          <strong>Web-to-Case</strong> lets customers submit support requests directly through a company website form, which automatically creates a case record in Salesforce.<br><br>
+          <strong>Setup Steps:</strong>
+          <ul>
+            <li>Enable Web-to-Case in Setup</li>
+            <li>Configure reCAPTCHA verification (recommended to block spam)</li>
+            <li>Use the Web-to-Case HTML Generator to select fields</li>
+            <li>Set redirect URL for customer post-submission</li>
+            <li>Embed generated HTML on your company website</li>
+          </ul>
+          <div class="tip-box">💡 Daily limit is 5,000 cases/day by default. The pending queue limit is 50,000; exceeding it causes requests to be rejected. You can request an increase from Salesforce Support.</div>
+        </div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggle(this)">
+          <span class="q-num">Q5</span>
+          <span class="q-text">What is Email-to-Case and how is it different from Web-to-Case?</span>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="qa-answer">
+          <strong>Email-to-Case</strong> automatically creates a case from customer emails sent to your support email address. Each email thread is tracked directly within the case record.<br><br>
+          <div class="table-wrapper">
+            <table style="width:100%; min-width: 400px; border-collapse:collapse;font-size:0.85rem;">
+              <tr style="background:#e0f2fe;">
+                <th style="padding:8px;text-align:left;border:1px solid #bfdbfe;">Feature</th>
+                <th style="padding:8px;text-align:left;border:1px solid #bfdbfe;">Email-to-Case</th>
+                <th style="padding:8px;text-align:left;border:1px solid #bfdbfe;">Web-to-Case</th>
+              </tr>
+              <tr>
+                <td style="padding:8px;border:1px solid #bfdbfe;">Channel</td>
+                <td style="padding:8px;border:1px solid #bfdbfe;">Email inbox</td>
+                <td style="padding:8px;border:1px solid #bfdbfe;">Web form</td>
+              </tr>
+              <tr style="background:#f0f9ff;">
+                <td style="padding:8px;border:1px solid #bfdbfe;">Thread Tracking</td>
+                <td style="padding:8px;border:1px solid #bfdbfe;">✅ Yes</td>
+                <td style="padding:8px;border:1px solid #bfdbfe;">❌ No</td>
+              </tr>
+              <tr>
+                <td style="padding:8px;border:1px solid #bfdbfe;">Attachments</td>
+                <td style="padding:8px;border:1px solid #bfdbfe;">✅ Supported</td>
+                <td style="padding:8px;border:1px solid #bfdbfe;">Limited</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ════════════ SECTION 2: CASE MANAGEMENT ════════════ -->
+  <div id="case" class="theme-teal">
+    <div class="section-header">
+      <div class="section-icon">📋</div>
+      <div>
+        <h2>Case Management</h2>
+        <p>Assignment, escalation, queues, entitlements, and SLAs</p>
+      </div>
+    </div>
+    <div class="qa-list">
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggle(this)">
+          <span class="q-num">Q6</span>
+          <span class="q-text">How do Case Assignment Rules work?</span>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="qa-answer">
+          <strong>Case Assignment Rules</strong> automatically assign incoming cases to specific agents or queues based on predefined criteria.<br><br>
+          <strong>Setup:</strong>
+          <ul>
+            <li>Go to Setup → Case Assignment Rules → New</li>
+            <li>Add rule entries with conditions (e.g., Case Priority = High → Assign to Senior Team)</li>
+            <li>Each rule entry has an order; first match wins</li>
+            <li>Set a default rule to catch unmatched cases</li>
+          </ul>
+          <strong>Common Criteria:</strong> Case origin, priority, product, customer type, geographic region.
+          <div class="tip-box">💡 Only one assignment rule can be active at a time. Combine with Omni-Channel for real-time, capacity-aware routing.</div>
+        </div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggle(this)">
+          <span class="q-num">Q7</span>
+          <span class="q-text">What is Case Escalation and how do you configure it?</span>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="qa-answer">
+          <strong>Case Escalation</strong> automatically raises the priority or reassigns a case when it isn't resolved within a defined timeframe. Ensures SLAs aren't breached.<br><br>
+          <strong>Configuration Steps:</strong>
+          <ul>
+            <li>Setup → Escalation Rules → New Rule</li>
+            <li>Define escalation criteria (e.g., Priority = High AND Status ≠ Closed)</li>
+            <li>Set escalation actions: notify agent/manager, reassign case, change priority</li>
+            <li>Configure time triggers (e.g., escalate after 4 hours)</li>
+          </ul>
+          <div class="tip-box">💡 Escalation rules work with <strong>business hours</strong> to avoid escalating cases during off-hours. Always configure business hours first!</div>
+        </div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggle(this)">
+          <span class="q-num">Q8</span>
+          <span class="q-text">What are Entitlements and Entitlement Processes?</span>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="qa-answer">
+          <strong>Entitlement Management</strong> helps define and enforce what level of support a customer is entitled to based on their service contract.<br><br>
+          <ul>
+            <li>📄 <strong>Entitlements</strong> – Define customer support eligibility (e.g., 24/7 phone support for Premium tier)</li>
+            <li>📅 <strong>Service Contracts</strong> – Represent warranties, subscriptions, or maintenance agreements</li>
+            <li>⏱️ <strong>Milestones</strong> – Time-based steps agents must complete (e.g., First Response within 1 hour)</li>
+            <li>🔄 <strong>Entitlement Processes</strong> – End-to-end timelines with all steps for resolving a case within SLA</li>
+          </ul>
+          <div class="tip-box">💡 <strong>Visual SLA Timelines</strong> give agents a graphical countdown so they can prioritize work and avoid breaching SLAs.</div>
+        </div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggle(this)">
+          <span class="q-num">Q9</span>
+          <span class="q-text">What are Queues in Service Cloud and when do you use them?</span>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="qa-answer">
+          <strong>Queues</strong> are holding areas for cases (or other records) that have not yet been assigned to a specific agent. They allow teams to share workload.<br><br>
+          <strong>Use Cases:</strong>
+          <ul>
+            <li>Billing Team Queue – all billing-related cases go here</li>
+            <li>VIP Queue – high-priority enterprise customer cases</li>
+            <li>Overnight Queue – cases received after hours</li>
+          </ul>
+          Agents can pick cases from a queue themselves, or Omni-Channel can push cases automatically to the best available agent.
+        </div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggle(this)">
+          <span class="q-num">Q10</span>
+          <span class="q-text">What is Incident Management in Service Cloud?</span>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="qa-answer">
+          <strong>Incident Management</strong> helps teams track large-scale disruptions that affect multiple customers simultaneously (e.g., outages).<br><br>
+          <strong>Key Objects:</strong>
+          <ul>
+            <li>🔴 <strong>Incident</strong> – Tracks the disruption and its impact</li>
+            <li>🔍 <strong>Problem</strong> – Root cause analysis and permanent fix</li>
+            <li>🔧 <strong>Change Request</strong> – Records the change needed to prevent recurrence</li>
+          </ul>
+          <strong>Benefits:</strong> Proactively identify issues, centralize tracking, meet SLAs, and reduce duplicate case creation by linking related cases to one incident.
+        </div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggle(this)">
+          <span class="q-num">Q11</span>
+          <span class="q-text">What is Swarming in Service Cloud?</span>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="qa-answer">
+          <strong>Swarming</strong> is a collaboration model where agents can quickly pull in a team of experts to resolve complex cases — instead of traditional escalation (which transfers ownership).<br><br>
+          <strong>How it works:</strong>
+          <ul>
+            <li>Agent triggers a swarm on a difficult case</li>
+            <li>Relevant experts join the swarm (via Salesforce or Slack)</li>
+            <li>All collaboration is captured in context on the case record</li>
+            <li>Case ownership stays with the original agent</li>
+          </ul>
+          <div class="tip-box">💡 Swarming reduces escalations, improves resolution time, and enables knowledge sharing across teams. Setup requires enabling Swarming + providing Read/Create/Edit/Delete on Swarm and Swarm Member objects.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ════════════ SECTION 3: OMNI-CHANNEL ════════════ -->
+  <div id="omni" class="theme-orange">
+    <div class="section-header">
+      <div class="section-icon">🌐</div>
+      <div>
+        <h2>Omni-Channel Routing</h2>
+        <p>Intelligent work distribution across all channels</p>
+      </div>
+    </div>
+    <div class="qa-list">
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggle(this)">
+          <span class="q-num">Q12</span>
+          <span class="q-text">What is Omni-Channel in Service Cloud and what routing types does it support?</span>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="qa-answer">
+          <strong>Omni-Channel</strong> is Service Cloud's intelligent routing engine that automatically assigns work items (cases, chats, leads) to the most appropriate available agents.<br><br>
+          <strong>Three Routing Models:</strong>
+          <ul>
+            <li>🎯 <strong>Skills-Based Routing</strong> – Routes work to agents with required skills (e.g., "Spanish-speaking" or "Billing expert")</li>
+            <li>📊 <strong>Capacity-Based Routing</strong> – Assigns work based on agent workload capacity</li>
+            <li>⚡ <strong>Queue-Based Routing</strong> – Pulls work from queues when agents become available</li>
+          </ul>
+          <div class="tip-box">💡 Omni-Channel Supervisor gives managers a real-time dashboard showing agent status, capacity, and queue backlogs — crucial for operational oversight.</div>
+        </div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggle(this)">
+          <span class="q-num">Q13</span>
+          <span class="q-text">What is Live Agent Chat and how do you set it up?</span>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="qa-answer">
+          <strong>Live Agent</strong> (now called Embedded Service / Messaging for In-App and Web) enables real-time text chat between agents and customers.<br><br>
+          <strong>Setup Process:</strong>
+          <ul>
+            <li>Enable Live Agent in Salesforce Setup</li>
+            <li>Configure Chat Buttons and Invitations</li>
+            <li>Set up Skills-Based Routing for chat assignment</li>
+            <li>Integrate with Service Console for agent multi-chat handling</li>
+            <li>Customize Pre-Chat and Post-Chat forms</li>
+          </ul>
+          <strong>Key Benefit:</strong> Agents can handle multiple chats simultaneously, improving efficiency without increasing headcount.
+        </div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggle(this)">
+          <span class="q-num">Q14</span>
+          <span class="q-text">How does Social Customer Service work in Service Cloud?</span>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="qa-answer">
+          <strong>Social Customer Service</strong> captures brand mentions and customer complaints from social media (Twitter/X, Facebook, etc.) and automatically creates cases in Salesforce.<br><br>
+          <ul>
+            <li>Monitor social channels in real time</li>
+            <li>Convert relevant social posts into cases automatically</li>
+            <li>Route cases via standard assignment/Omni-Channel rules</li>
+            <li>Agents can respond directly from the Service Console</li>
+          </ul>
+          <div class="tip-box">💡 This ensures no customer complaint on social media goes unnoticed, maintaining brand reputation and service consistency.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ════════════ SECTION 4: KNOWLEDGE ════════════ -->
+  <div id="knowledge" class="theme-purple">
+    <div class="section-header">
+      <div class="section-icon">📚</div>
+      <div>
+        <h2>Knowledge Base & Self-Service</h2>
+        <p>Articles, Experience Cloud, and customer self-help</p>
+      </div>
+    </div>
+    <div class="qa-list">
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggle(this)">
+          <span class="q-num">Q15</span>
+          <span class="q-text">How does Salesforce Knowledge work?</span>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="qa-answer">
+          <strong>Salesforce Knowledge</strong> is a knowledge management system where agents create and maintain articles (FAQs, how-to guides, troubleshooting steps) that can be used to resolve cases faster.<br><br>
+          <strong>Key Concepts:</strong>
+          <ul>
+            <li>📝 <strong>Knowledge Articles</strong> – Structured content pieces in defined categories</li>
+            <li>🔄 <strong>Article Lifecycle</strong> – Draft → In Review → Published → Archived</li>
+            <li>⭐ <strong>Article Ratings</strong> – Agents and customers rate usefulness</li>
+            <li>🔍 <strong>Lightning Knowledge Search</strong> – Full-text search powered by AI</li>
+            <li>🌐 <strong>Channels</strong> – Published to internal (agents), partners, or public (customers)</li>
+          </ul>
+          <div class="tip-box">💡 <strong>Knowledge-Centered Service (KCS)</strong> encourages agents to create and improve articles during case resolution — building the knowledge base organically.</div>
+        </div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggle(this)">
+          <span class="q-num">Q16</span>
+          <span class="q-text">What is Experience Cloud (Communities) and its role in Service Cloud?</span>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="qa-answer">
+          <strong>Experience Cloud</strong> (formerly Communities) lets organizations build self-service portals where customers can:<br><br>
+          <ul>
+            <li>Log and track their own cases</li>
+            <li>Search and read knowledge articles</li>
+            <li>Collaborate with other customers in discussion forums</li>
+            <li>View their entitlements and service contracts</li>
+          </ul>
+          <strong>Business Value:</strong> Reduces inbound case volume by enabling customer self-resolution, lowering support costs while improving customer satisfaction.
+          <div class="tip-box">💡 The <strong>Suggested Articles</strong> feature proactively shows relevant knowledge articles before a customer submits a case, deflecting unnecessary tickets.</div>
+        </div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggle(this)">
+          <span class="q-num">Q17</span>
+          <span class="q-text">What are Case Teams and how do they help?</span>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="qa-answer">
+          <strong>Case Teams</strong> allow multiple users with defined roles to collaborate on a single case. Each team member has a specific role (Support Agent, Manager, Customer Rep) that determines their access level to the case.<br><br>
+          <strong>Benefits:</strong>
+          <ul>
+            <li>Complex cases with cross-functional needs can be resolved collaboratively</li>
+            <li>Team members receive notifications about case updates</li>
+            <li>Predefined "Case Team Templates" can be assigned in bulk</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ════════════ SECTION 5: AUTOMATION ════════════ -->
+  <div id="automation" class="theme-gold">
+    <div class="section-header">
+      <div class="section-icon">⚙️</div>
+      <div>
+        <h2>Automation & Configuration</h2>
+        <p>Flows, Macros, approval processes, and integrations</p>
+      </div>
+    </div>
+    <div class="qa-list">
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggle(this)">
+          <span class="q-num">Q18</span>
+          <span class="q-text">What are Macros in Service Cloud and how are they used?</span>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="qa-answer">
+          <strong>Macros</strong> are sets of instructions that automate repetitive tasks in the Service Console with a single click.<br><br>
+          <strong>Common Macro Actions:</strong>
+          <ul>
+            <li>Select and send an email template</li>
+            <li>Update case fields (status, priority)</li>
+            <li>Log a call or create a task</li>
+            <li>Close a case</li>
+          </ul>
+          <strong>Permission Note:</strong> To let users run irreversible macros (like sending emails), enable <em>"Manage Macros Users Can't Undo"</em> in System Permissions.<br><br>
+          <div class="tip-box">💡 Macros are especially powerful when combined with Quick Text and Email Templates — a single macro can handle the entire resolution workflow for a common issue type.</div>
+        </div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggle(this)">
+          <span class="q-num">Q19</span>
+          <span class="q-text">How does Flow Builder help in automating Service Cloud processes?</span>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="qa-answer">
+          <strong>Flow Builder</strong> is Salesforce's primary automation tool (replacing old Workflow Rules and Process Builder). It handles complex, multi-step business logic without code.<br><br>
+          <strong>Flow Types used in Service Cloud:</strong>
+          <ul>
+            <li>⚡ <strong>Record-Triggered Flows</strong> – Fire when a case is created/updated</li>
+            <li>📅 <strong>Scheduled Flows</strong> – Run at set intervals (e.g., daily SLA checks)</li>
+            <li>🖱️ <strong>Screen Flows</strong> – Guide agents through a step-by-step process</li>
+            <li>🔗 <strong>Auto-launched Flows</strong> – Triggered by APIs or other flows</li>
+          </ul>
+          <strong>Example:</strong> When a case priority changes to Critical → automatically notify the manager via email → create a follow-up task → update the SLA milestone.
+        </div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggle(this)">
+          <span class="q-num">Q20</span>
+          <span class="q-text">How does Service Cloud integrate with external systems?</span>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="qa-answer">
+          Service Cloud integrates with external systems via multiple methods:<br><br>
+          <ul>
+            <li>🔌 <strong>REST/SOAP APIs</strong> – Exchange data with third-party CRMs, ERPs, or ticketing tools</li>
+            <li>🔗 <strong>Salesforce Connect</strong> – Access external data in real time without importing it</li>
+            <li>🔄 <strong>MuleSoft / Dell Boomi</strong> – Middleware for complex integration orchestration</li>
+            <li>📦 <strong>AppExchange Packages</strong> – Pre-built CTI connectors, ERP adapters</li>
+            <li>🎧 <strong>CTI Integration</strong> – Open CTI connects phone systems (Avaya, Genesys) to the console</li>
+          </ul>
+          <div class="tip-box">💡 CTI (Computer Telephony Integration) allows agents to handle calls directly from the Service Console — caller info auto-populates, saving lookup time.</div>
+        </div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggle(this)">
+          <span class="q-num">Q21</span>
+          <span class="q-text">What is the role of Approval Processes in Service Cloud?</span>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="qa-answer">
+          <strong>Approval Processes</strong> ensure that critical service actions (refunds, policy exceptions, case closures above a value threshold) are reviewed and approved by the right person before execution.<br><br>
+          <strong>Steps in an Approval Process:</strong>
+          <ul>
+            <li>Agent submits record for approval</li>
+            <li>Approver receives notification</li>
+            <li>Approver approves or rejects with comments</li>
+            <li>Automated actions trigger on approval/rejection</li>
+          </ul>
+          This maintains accountability and audit trails for sensitive customer interactions.
+        </div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggle(this)">
+          <span class="q-num">Q22</span>
+          <span class="q-text">What is GDPR compliance in Salesforce Service Cloud?</span>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="qa-answer">
+          The <strong>GDPR (General Data Protection Regulation)</strong> governs how EU citizens' personal data is collected, processed, and stored. Service Cloud supports compliance through:<br><br>
+          <ul>
+            <li>🔒 <strong>Data Minimization</strong> – Collect only necessary customer data</li>
+            <li>🗑️ <strong>Right to Erasure</strong> – Delete customer data upon request</li>
+            <li>🛡️ <strong>Privacy by Design</strong> – Built-in privacy controls</li>
+            <li>🔐 <strong>Field-Level Encryption</strong> – Protect sensitive fields</li>
+            <li>✅ <strong>Consent Management</strong> – Capture and honor customer data preferences</li>
+            <li>🔑 <strong>Role-Based Access Control</strong> – Limit who can see personal data</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ════════════ SECTION 6: EINSTEIN AI ════════════ -->
+  <div id="ai" class="theme-rose">
+    <div class="section-header">
+      <div class="section-icon">🤖</div>
+      <div>
+        <h2>Einstein AI & Advanced Features</h2>
+        <p>AI-powered automation, bots, and predictive insights</p>
+      </div>
+    </div>
+    <div class="qa-list">
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggle(this)">
+          <span class="q-num">Q23</span>
+          <span class="q-text">What are the key Einstein AI features in Service Cloud?</span>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="qa-answer">
+          <strong>Salesforce Einstein</strong> brings AI to Service Cloud in multiple ways:<br><br>
+          <ul>
+            <li>🏷️ <strong>Einstein Case Classification</strong> – ML auto-populates case fields (category, priority, reason) based on past data</li>
+            <li>🔄 <strong>Einstein Case Routing</strong> – Intelligently routes cases to the best-fit agent</li>
+            <li>💬 <strong>Einstein Reply Recommendations</strong> – Suggests proven responses during chats/emails</li>
+            <li>📖 <strong>Einstein Article Recommendations</strong> – Suggests relevant KB articles while agents work</li>
+            <li>🤖 <strong>Einstein Bots</strong> – AI chatbots handling routine queries before handing off to agents</li>
+            <li>📊 <strong>Einstein Analytics</strong> – Predictive insights on customer satisfaction and agent performance</li>
+          </ul>
+          <div class="tip-box">💡 Einstein Case Classification improves over time — the more cases processed, the smarter and more accurate it becomes.</div>
+        </div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggle(this)">
+          <span class="q-num">Q24</span>
+          <span class="q-text">What are Einstein Bots and when should you use them?</span>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="qa-answer">
+          <strong>Einstein Bots</strong> are AI-powered chatbots that can handle initial customer interactions, gather information, and resolve routine queries — without human agent involvement.<br><br>
+          <strong>Ideal Use Cases:</strong>
+          <ul>
+            <li>Check order status / shipping updates</li>
+            <li>Reset passwords or account lookups</li>
+            <li>FAQ responses for common questions</li>
+            <li>Collecting case details before handing off to a live agent</li>
+          </ul>
+          <strong>Bot → Human Handoff:</strong> Bots escalate gracefully, passing full conversation context to the agent — no repeated information from the customer.<br><br>
+          <div class="tip-box">💡 Einstein Bots reduce AHT, lower cost-per-contact, and let human agents focus on complex, high-value interactions.</div>
+        </div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggle(this)">
+          <span class="q-num">Q25</span>
+          <span class="q-text">What is Einstein Case Classification and how does it improve efficiency?</span>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="qa-answer">
+          <strong>Einstein Case Classification</strong> uses machine learning to automatically fill in case fields — like <em>Product</em>, <em>Case Reason</em>, and <em>Priority</em> — based on the case subject and description, learning from historical data.<br><br>
+          <strong>Before:</strong> Agent reads the case, manually selects type/product/reason → Time-consuming and error-prone.<br>
+          <strong>After:</strong> Einstein pre-fills fields automatically → Agent just reviews and confirms → Faster routing and resolution.<br><br>
+          Combines powerfully with <strong>Einstein Case Routing</strong> to get cases to the right team instantly.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ════════════ SECTION 7: SCENARIO QUESTIONS ════════════ -->
+  <div id="scenario" class="theme-green">
+    <div class="section-header">
+      <div class="section-icon">🎯</div>
+      <div>
+        <h2>Scenario-Based & Behavioral</h2>
+        <p>Real-world problem solving, CSG role-specific questions</p>
+      </div>
+    </div>
+    <div class="qa-list">
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggle(this)">
+          <span class="q-num">Q26</span>
+          <span class="q-text">A customer's high-priority case has not been resolved in 24 hours. What do you do?</span>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="qa-answer">
+          <strong>Structured Approach:</strong><br><br>
+          <ul>
+            <li>🔍 <strong>Assess</strong> – Review case details, case history, and what's been attempted</li>
+            <li>⬆️ <strong>Escalate</strong> – Use Service Cloud's escalation rules or manually escalate to senior support / specialist team</li>
+            <li>👥 <strong>Swarm</strong> – Trigger a swarm if subject matter experts are needed</li>
+            <li>📢 <strong>Communicate</strong> – Proactively update the customer on status and ETA</li>
+            <li>📊 <strong>Monitor</strong> – Use Omni-Channel Supervisor to track resolution progress</li>
+            <li>📝 <strong>Document</strong> – Post-resolution, create a Knowledge Article to prevent recurrence</li>
+          </ul>
+          <div class="tip-box">💡 Show you can balance urgency with process. Mention SLA tracking and stakeholder communication in your answer.</div>
+        </div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggle(this)">
+          <span class="q-num">Q27</span>
+          <span class="q-text">How would you handle a frustrated, escalating customer?</span>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="qa-answer">
+          <strong>CLEAR Framework:</strong><br><br>
+          <ul>
+            <li>🎧 <strong>C – Calm & Listen</strong> – Let the customer fully express their frustration without interrupting</li>
+            <li>🤝 <strong>L – Acknowledge</strong> – Validate their experience ("I completely understand your frustration, and I'm sorry for the inconvenience")</li>
+            <li>🔍 <strong>E – Explore</strong> – Understand the root cause and what resolution they expect</li>
+            <li>✅ <strong>A – Act</strong> – Take ownership, provide clear next steps and ETA</li>
+            <li>📞 <strong>R – Review</strong> – Follow up after resolution to confirm satisfaction</li>
+          </ul>
+          In Salesforce, I'd use the case record to document all interactions and trigger any automated follow-ups via Flow.
+        </div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggle(this)">
+          <span class="q-num">Q28</span>
+          <span class="q-text">How do you drive user adoption when rolling out a new Service Cloud feature?</span>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="qa-answer">
+          <strong>Change Management Strategy:</strong><br><br>
+          <ul>
+            <li>📢 <strong>Communicate Benefits Early</strong> – Show agents "what's in it for them" (saves time, fewer clicks)</li>
+            <li>🏫 <strong>Personalized Training</strong> – Role-specific training, not one-size-fits-all</li>
+            <li>🧪 <strong>Sandbox Practice</strong> – Hands-on exercises before go-live</li>
+            <li>🏆 <strong>Champions Program</strong> – Identify early adopters as peer coaches</li>
+            <li>📊 <strong>Track Usage</strong> – Reports/dashboards to monitor adoption rates</li>
+            <li>🔁 <strong>Iterate</strong> – Collect feedback and refine configuration based on real agent input</li>
+          </ul>
+          <div class="tip-box">💡 Mention Trailhead as a self-paced resource and the value of in-app guidance (Salesforce In-App Guidance feature).</div>
+        </div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggle(this)">
+          <span class="q-num">Q29</span>
+          <span class="q-text">How do you measure the success of a Service Cloud implementation?</span>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="qa-answer">
+          Success is measured through both <strong>operational KPIs</strong> and <strong>customer experience metrics</strong>:<br><br>
+          <div class="table-wrapper">
+            <table style="width:100%; min-width: 450px; border-collapse:collapse;font-size:0.84rem;">
+              <tr style="background:#e8f5e9;">
+                <th style="padding:8px;border:1px solid #a5d6a7;text-align:left;">Metric</th>
+                <th style="padding:8px;border:1px solid #a5d6a7;text-align:left;">What It Measures</th>
+              </tr>
+              <tr><td style="padding:8px;border:1px solid #a5d6a7;">CSAT (Customer Satisfaction)</td><td style="padding:8px;border:1px solid #a5d6a7;">Post-case customer happiness score</td></tr>
+              <tr style="background:#f0fdf4;"><td style="padding:8px;border:1px solid #a5d6a7;">FCR (First Contact Resolution)</td><td style="padding:8px;border:1px solid #a5d6a7;">% of cases resolved on first touch</td></tr>
+              <tr><td style="padding:8px;border:1px solid #a5d6a7;">AHT (Average Handle Time)</td><td style="padding:8px;border:1px solid #a5d6a7;">Time per case resolution</td></tr>
+              <tr style="background:#f0fdf4;"><td style="padding:8px;border:1px solid #a5d6a7;">SLA Compliance Rate</td><td style="padding:8px;border:1px solid #a5d6a7;">% of cases resolved within SLA</td></tr>
+              <tr><td style="padding:8px;border:1px solid #a5d6a7;">Case Deflection Rate</td><td style="padding:8px;border:1px solid #a5d6a7;">Self-service / KB resolutions vs. agent cases</td></tr>
+              <tr style="background:#f0fdf4;"><td style="padding:8px;border:1px solid #a5d6a7;">Agent Utilization</td><td style="padding:8px;border:1px solid #a5d6a7;">Active vs. available vs. idle time</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggle(this)">
+          <span class="q-num">Q30</span>
+          <span class="q-text">How do you manage data privacy while handling customer cases?</span>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="qa-answer">
+          <strong>Best Practices:</strong><br><br>
+          <ul>
+            <li>🔐 Collect only the minimum data needed to resolve the case (data minimization)</li>
+            <li>🛡️ Use Field-Level Security and Role Hierarchy to restrict data access</li>
+            <li>🔒 Enable Shield Platform Encryption for sensitive fields</li>
+            <li>✅ Obtain customer consent where required before processing data</li>
+            <li>📋 Follow data retention policies — archive or delete old case data per policy</li>
+            <li>👤 Implement Multi-Factor Authentication for agent logins</li>
+            <li>📝 Maintain audit trails for all data access and modifications</li>
+          </ul>
+          <div class="tip-box">💡 Mention GDPR, CCPA (California), and any regional regulations relevant to the company's customer base.</div>
+        </div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggle(this)">
+          <span class="q-num">Q31</span>
+          <span class="q-text">How do you stay current with Salesforce Service Cloud updates?</span>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="qa-answer">
+          <strong>My Learning Ecosystem:</strong><br><br>
+          <ul>
+            <li>🏔️ <strong>Trailhead</strong> – Salesforce's official learning platform; complete new Service Cloud modules each release</li>
+            <li>📄 <strong>Release Notes</strong> – Review Salesforce's 3x/year release notes (Spring, Summer, Winter)</li>
+            <li>🎙️ <strong>Webinars & Events</strong> – Dreamforce, TrailblazerDX, online user group meetings</li>
+            <li>👥 <strong>Trailblazer Community</strong> – Forums, Slack groups, and expert Q&A</li>
+            <li>📺 <strong>Salesforce YouTube / Blogs</strong> – Product demos and deep-dive videos</li>
+            <li>🔔 <strong>Sandbox Testing</strong> – Preview sandbox to test new features before production rollout</li>
+          </ul>
+          <div class="tip-box">💡 Mentioning the "Release Readiness" process (testing in sandbox + agent training ahead of release) shows operational maturity.</div>
+        </div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggle(this)">
+          <span class="q-num">Q32</span>
+          <span class="q-text">Describe the difference between Case Management and Incident Management.</span>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="qa-answer">
+          <div class="table-wrapper">
+            <table style="width:100%; min-width: 450px; border-collapse:collapse;font-size:0.85rem;">
+              <tr style="background:#e8f5e9;">
+                <th style="padding:8px;border:1px solid #a5d6a7;text-align:left;">Dimension</th>
+                <th style="padding:8px;border:1px solid #a5d6a7;">Case Management</th>
+                <th style="padding:8px;border:1px solid #a5d6a7;">Incident Management</th>
+              </tr>
+              <tr><td style="padding:8px;border:1px solid #a5d6a7;">Scope</td><td style="padding:8px;border:1px solid #a5d6a7;">Single customer issue</td><td style="padding:8px;border:1px solid #a5d6a7;">Large-scale disruption / outage</td></tr>
+              <tr style="background:#f0fdf4;"><td style="padding:8px;border:1px solid #a5d6a7;">Impact</td><td style="padding:8px;border:1px solid #a5d6a7;">One customer</td><td style="padding:8px;border:1px solid #a5d6a7;">Many customers simultaneously</td></tr>
+              <tr><td style="padding:8px;border:1px solid #a5d6a7;">Process</td><td style="padding:8px;border:1px solid #a5d6a7;">Case → Resolution</td><td style="padding:8px;border:1px solid #a5d6a7;">Incident → Problem → Change Request</td></tr>
+              <tr style="background:#f0fdf4;"><td style="padding:8px;border:1px solid #a5d6a7;">Goal</td><td style="padding:8px;border:1px solid #a5d6a7;">Resolve the individual issue</td><td style="padding:8px;border:1px solid #a5d6a7;">Restore service + prevent recurrence</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-question" onclick="toggle(this)">
+          <span class="q-num">Q33</span>
+          <span class="q-text">How would you design a Service Cloud solution for a new enterprise client?</span>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="qa-answer">
+          <strong>Discovery → Design → Deploy Framework:</strong><br><br>
+          <ul>
+            <li>🔍 <strong>Discovery</strong> – Stakeholder interviews, current-state analysis, pain points, volume metrics</li>
+            <li>📋 <strong>Requirements</strong> – Document functional/non-functional requirements, SLA expectations</li>
+            <li>🏗️ <strong>Architecture Design</strong> – Channel strategy, routing model, KB structure, integrations needed</li>
+            <li>🔧 <strong>Configuration</strong> – Omni-Channel, entitlements, escalation rules, dashboards</li>
+            <li>🧪 <strong>Testing</strong> – UAT in sandbox, load testing for scalability</li>
+            <li>🚀 <strong>Phased Rollout</strong> – Pilot with one team → iterate → full deployment</li>
+            <li>📊 <strong>Hypercare</strong> – Monitor KPIs post-launch, quick-fix sprints as needed</li>
+          </ul>
+          <div class="tip-box">💡 Mention Salesforce's Success Cloud methodology and the importance of a phased rollout to minimize disruption.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ════════════ QUICK REFERENCE CHEAT SHEET ════════════ -->
+  <div style="margin-top:60px;">
+    <div class="section-header">
+      <div class="section-icon" style="background:#e0f4ff;">⚡</div>
+      <div>
+        <h2>Quick Reference Cheat Sheet</h2>
+        <p>Key terms at a glance — perfect last-minute review</p>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:8px;">
+      <div style="background:#e0f4ff;border-radius:14px;padding:16px;border:1px solid #bfdbfe;">
+        <div style="font-size:1.4rem;margin-bottom:6px;">📋</div>
+        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.88rem;color:#1a73e8;margin-bottom:4px;">Case</div>
+        <div style="font-size:0.78rem;color:#3d3d5c;line-height:1.5;">Customer's question, feedback, or issue; backbone of Service Cloud</div>
+      </div>
+      <div style="background:#d6f5ec;border-radius:14px;padding:16px;border:1px solid #a7e6d5;">
+        <div style="font-size:1.4rem;margin-bottom:6px;">🔄</div>
+        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.88rem;color:#00897b;margin-bottom:4px;">Omni-Channel</div>
+        <div style="font-size:0.78rem;color:#3d3d5c;line-height:1.5;">Routes work to agents based on skills, capacity & availability</div>
+      </div>
+      <div style="background:#ffe8db;border-radius:14px;padding:16px;border:1px solid #ffc9ae;">
+        <div style="font-size:1.4rem;margin-bottom:6px;">📑</div>
+        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.88rem;color:#f4511e;margin-bottom:4px;">Entitlement</div>
+        <div style="font-size:0.78rem;color:#3d3d5c;line-height:1.5;">Defines the support level a customer is entitled to per their contract</div>
+      </div>
+      <div style="background:#ede9ff;border-radius:14px;padding:16px;border:1px solid #c9bef5;">
+        <div style="font-size:1.4rem;margin-bottom:6px;">⏱️</div>
+        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.88rem;color:#6c3fc5;margin-bottom:4px;">Milestone</div>
+        <div style="font-size:0.78rem;color:#3d3d5c;line-height:1.5;">Time-based SLA step (e.g., "First Response in 1 hr")</div>
+      </div>
+      <div style="background:#fff9d6;border-radius:14px;padding:16px;border:1px solid #fde68a;">
+        <div style="font-size:1.4rem;margin-bottom:6px;">🤖</div>
+        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.88rem;color:#b45309;margin-bottom:4px;">Macro</div>
+        <div style="font-size:0.78rem;color:#3d3d5c;line-height:1.5;">One-click automation for repetitive agent tasks</div>
+      </div>
+      <div style="background:#ffe0ec;border-radius:14px;padding:16px;border:1px solid #f9a8c9;">
+        <div style="font-size:1.4rem;margin-bottom:6px;">🏷️</div>
+        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.88rem;color:#c2185b;margin-bottom:4px;">Einstein Classification</div>
+        <div style="font-size:0.78rem;color:#3d3d5c;line-height:1.5;">ML auto-populates case fields from historical data</div>
+      </div>
+      <div style="background:#e8f5e9;border-radius:14px;padding:16px;border:1px solid #a5d6a7;">
+        <div style="font-size:1.4rem;margin-bottom:6px;">🌐</div>
+        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.88rem;color:#2e7d32;margin-bottom:4px;">Experience Cloud</div>
+        <div style="font-size:0.78rem;color:#3d3d5c;line-height:1.5;">Self-service portal for customers (log cases, read KB articles)</div>
+      </div>
+      <div style="background:#f0f9ff;border-radius:14px;padding:16px;border:1px solid #bfdbfe;">
+        <div style="font-size:1.4rem;margin-bottom:6px;">🔀</div>
+        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.88rem;color:#1a73e8;margin-bottom:4px;">Swarming</div>
+        <div style="font-size:0.78rem;color:#3d3d5c;line-height:1.5;">Collaborate with experts on a case without changing ownership</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <strong>Salesforce CSG – Service Cloud Interview Prep</strong><br>
+  Compiled from top Salesforce resources • igmguru • saasguru • salesforcegeek • sfapps.info<br>
+  <span style="margin-top:6px;display:block;">Best of luck with your interview! 🚀</span>
+</footer>
+
+<script>
+  function toggle(el) {
+    const card = el.closest('.qa-card');
+    card.classList.toggle('open');
+  }
+
+  // Progress bar
+  window.addEventListener('scroll', () => {
+    const scroll = window.scrollY;
+    const height = document.body.scrollHeight - window.innerHeight;
+    const progress = (scroll / height) * 100;
+    document.getElementById('progress').style.width = progress + '%';
+  });
+</script>
+</body>
+</html>
